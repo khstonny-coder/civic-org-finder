@@ -21,8 +21,8 @@ const envPairs = envText
   .map((m) => [m[1], m[2].replace(/^["']|["']$/g, "")] as const);
 const env = (k: string) => envPairs.find(([name]) => name === k)?.[1] ?? "";
 
-const run = (cmd: string, args: string[], opts: { env?: NodeJS.ProcessEnv; quiet?: boolean } = {}) =>
-  execFileSync(cmd, args, { encoding: "utf8", env: { ...process.env, ...opts.env }, stdio: opts.quiet ? ["ignore", "pipe", "pipe"] : ["ignore", "pipe", "inherit"], shell: process.platform === "win32" && cmd !== "git" }).trim();
+const run = (cmd: string, args: string[], opts: { env?: Record<string, string>; quiet?: boolean } = {}) =>
+  execFileSync(cmd, args, { encoding: "utf8", env: { ...process.env, ...opts.env } as NodeJS.ProcessEnv, stdio: opts.quiet ? ["ignore", "pipe", "pipe"] : ["ignore", "pipe", "inherit"], shell: process.platform === "win32" && cmd !== "git" }).trim();
 
 // 1) 변경 확인 후 스테이징
 run("git", ["add", "-A"]);
