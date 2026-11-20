@@ -1,9 +1,10 @@
 // 시험용 계정 만들기: 공무원·단체 담당자·관리자 3개. (직접 화면을 눌러 볼 때 쓴다)
 // 실행: node --env-file=.env scripts/make-test-accounts.mts
 // 비밀번호는 무작위로 만들어 `.env.test-accounts`에만 적는다. (.env* 는 .gitignore에 들어 있어 커밋되지 않는다)
+// 비밀번호를 직접 정하려면 `.env.test-accounts` 의 세 번째 칸을 고친 뒤 `--from-file` 을 붙여 실행한다.
 // 이미 있는 계정이면 비밀번호만 새로 바꾼다. 시험이 끝나면 `scripts/make-test-accounts.mts --remove`로 지운다.
 import { randomBytes } from "node:crypto";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
 
 const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
@@ -25,9 +26,20 @@ if (process.argv.includes("--remove")) {
   process.exit(0);
 }
 
+// --from-file: .env.test-accounts 에 직접 적어 둔 비밀번호를 그대로 적용한다. (형식: `역할 아이디 비밀번호`, 한 줄에 하나)
+const fromFile = process.argv.includes("--from-file");
+const wanted = new Map<string, string>();
+if (fromFile) {
+  for (const line of readFileSync(".env.test-accounts", "utf8").split(/\r?\n/)) {
+    const [role, , pw] = line.trim().split(/\s+/);
+    if (role && pw) wanted.set(role, pw);
+  }
+}
+
 const lines: string[] = [];
 for (const a of accounts) {
-  const password = randomBytes(9).toString("base64url");
+  const password = fromFile ? wanted.get(a.role) : randomBytes(9).toString("base64url");
+  if (!password || password.length < 8) throw new Error(`${a.role} 비밀번호가 없거나 8자보다 짧습니다. .env.test-accounts 를 확인하세요.`);
   const meta = a.role === "org" ? { org_name: "시험 단체" } : {};
   let user = find(a.email);
   if (user) {
