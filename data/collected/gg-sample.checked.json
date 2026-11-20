@@ -1,0 +1,57 @@
+{
+  "accepted": [
+    {
+      "name": "바르게살기운동의왕시협의회",
+      "name_normalized": "바르게살기운동의왕시협의회",
+      "region_code": "41430",
+      "field": "지역사회·자원봉사",
+      "description": "바르게살기운동",
+      "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+      "collected_at": "2026-11-20T06:08:37.105Z",
+      "contact_phone": null,
+      "contact_email": null,
+      "contact_source_url": null
+    },
+    {
+      "name": "자연보호부천시협의회",
+      "name_normalized": "자연보호부천시협의회",
+      "region_code": "41192",
+      "field": "환경",
+      "description": "자연보호활동",
+      "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+      "collected_at": "2026-11-20T06:08:37.105Z",
+      "contact_phone": null,
+      "contact_email": null,
+      "contact_source_url": null
+    },
+    {
+      "name": "수원KYC",
+      "name_normalized": "수원kyc",
+      "region_code": "41115",
+      "field": "인권·평화",
+      "description": "청년교육,평화통일, 인권복지실현사업등",
+      "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+      "collected_at": "2026-11-20T06:08:37.105Z",
+      "contact_phone": null,
+      "contact_email": null,
+      "contact_source_url": null
+    },
+    {
+      "name": "흥사단평택안성지부",
+      "name_normalized": "흥사단평택안성지부",
+      "region_code": "41220",
+      "field": "교육·청소년",
+      "description": "청소년지도육성",
+      "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+      "collected_at": "2026-11-20T06:08:37.105Z",
+      "contact_phone": null,
+      "contact_email": null,
+      "contact_source_url": null
+    }
+  ],
+  "excluded_count": 1,
+  "excluded_reasons": {
+    "missing_region": 1
+  },
+  "duplicates_merged": 0
+}

@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# 값이 비어 있는 환경변수 예시 파일만 커밋한다 (PLAN 23번)
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +41,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 삭제 대기 폴더 (직접 확인 후 삭제)
+trash-can/
+
+# bkit 플러그인 작업 폴더
+.bkit/

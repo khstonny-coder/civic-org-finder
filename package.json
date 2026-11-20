@@ -6,9 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:check": "node --env-file=.env scripts/check-db.mts",
+    "regions:load": "node --env-file=.env scripts/load-regions.mts",
+    "collect:sample": "node scripts/collect/fetch-gg-sample.mts",
+    "collect:check": "node scripts/collect/check-sample.mts",
+    "collect:save": "node --env-file=.env scripts/collect/save.mts",
+    "collect:run": "npm run collect:sample && npm run collect:check && npm run collect:save",
+    "collect:full": "node --env-file=.env scripts/collect/fetch-gg-sample.mts --full",
+    "collect:check:full": "node scripts/collect/check-sample.mts --set=gg-full",
+    "collect:save:full": "node --env-file=.env scripts/collect/save.mts --set=gg-full",
+    "collect:run:full": "npm run collect:full && npm run collect:check:full && npm run collect:save:full",
+    "search:check": "node --env-file=.env scripts/search-check.mts",
+    "metrics:check": "node --env-file=.env scripts/metrics-check.mts",
+    "icons:make": "node scripts/make-icons.mts",
+    "test:search": "node --test lib/search/ lib/ai/ lib/auth/ lib/reports/ lib/meetings/ lib/orgs/ lib/admin/ lib/export/ lib/db/",
+    "test:collect": "node --test scripts/collect/"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.119.2",
+    "exceljs": "^4.4.0",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"
@@ -20,6 +38,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "supabase": "^3.2.0",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   }

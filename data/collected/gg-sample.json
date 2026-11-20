@@ -1,0 +1,57 @@
+[
+  {
+    "name": "바르게살기운동의왕시협의회",
+    "region_code": "41430",
+    "region_label": "경기도 의왕시",
+    "match_note": "시군 코드 일치",
+    "description": "바르게살기운동",
+    "registered_on": "2000-06-12",
+    "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+    "source_label": "경기데이터드림 비영리민간단체(전분야) 현황 (경기도, 데이터 기준일 2025-12-31)",
+    "collected_at": "2026-11-20T06:08:37.105Z"
+  },
+  {
+    "name": "자연보호부천시협의회",
+    "region_code": "41192",
+    "region_label": "경기도 부천시 원미구",
+    "match_note": "주소의 구로 확인",
+    "description": "자연보호활동",
+    "registered_on": "2000-06-12",
+    "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+    "source_label": "경기데이터드림 비영리민간단체(전분야) 현황 (경기도, 데이터 기준일 2025-12-31)",
+    "collected_at": "2026-11-20T06:08:37.105Z"
+  },
+  {
+    "name": "새시대를열어가는청년들",
+    "region_code": null,
+    "region_label": "안산시",
+    "match_note": "구를 정하지 못함 (후보 2곳)",
+    "description": "실업자,저소득층지원",
+    "registered_on": "2000-06-12",
+    "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+    "source_label": "경기데이터드림 비영리민간단체(전분야) 현황 (경기도, 데이터 기준일 2025-12-31)",
+    "collected_at": "2026-11-20T06:08:37.105Z"
+  },
+  {
+    "name": "수원KYC",
+    "region_code": "41115",
+    "region_label": "경기도 수원시 팔달구",
+    "match_note": "주소의 구로 확인",
+    "description": "청년교육,평화통일, 인권복지실현사업등",
+    "registered_on": "2000-06-12",
+    "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+    "source_label": "경기데이터드림 비영리민간단체(전분야) 현황 (경기도, 데이터 기준일 2025-12-31)",
+    "collected_at": "2026-11-20T06:08:37.105Z"
+  },
+  {
+    "name": "흥사단평택안성지부",
+    "region_code": "41220",
+    "region_label": "경기도 평택시",
+    "match_note": "시군 코드 일치",
+    "description": "청소년지도육성",
+    "registered_on": "2000-06-12",
+    "source_url": "https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=QZT80FT2H6KK71YGRFLU15263757&infSeq=1",
+    "source_label": "경기데이터드림 비영리민간단체(전분야) 현황 (경기도, 데이터 기준일 2025-12-31)",
+    "collected_at": "2026-11-20T06:08:37.105Z"
+  }
+]

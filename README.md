@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 우리동네 시민단체 찾기
 
-## Getting Started
+시민단체 간담회를 여는 공무원이 **시·군·구 이름만 입력하면, 그 지역의 시민단체를 출처 링크와 함께** 찾아 주는 챗봇 서비스입니다.
 
-First, run the development server:
+## 왜 만들었나
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+간담회를 준비하는 공무원은 지역 시민단체 정보를 홈페이지·SNS·뉴스에서 직접 모아야 해서 시간이 오래 걸리고, 알려진 단체만 초대하다 보면 새로운 단체가 빠집니다. 이 서비스는 공개된 단체 정보를 DB로 모아 두고, 지역을 물으면 **DB에 있는 단체만** 알려 줍니다. (AI가 없는 단체를 지어내지 않습니다)
+
+## 주요 기능
+
+- **지역별 시민단체 검색·안내**: 시·군·구를 입력하면 단체 카드(이름·분야·설명·대표 연락처·출처 링크·수집일)를 10곳씩 보여 주고, "더 보기"와 "인접 지역도 보기"를 지원합니다.
+- **단체 정보 수집·DB 구축**: 공공 목록에서 모은 정보를 필수 항목 확인, 개인 연락처 걸러내기, 중복 합치기를 거쳐 저장합니다.
+- **분야 필터 · 엑셀 내려받기**: 환경·복지 등 분야별로 좁히고, 공개 정보만 .xlsx로 내려받습니다.
+- **오류 신고**: 카드의 "정보가 틀렸어요" 버튼으로 신고하면 확인 전까지 "확인 필요"로 표시합니다. 수집한 지 1년이 지난 정보도 "확인 필요"로 보여 줍니다.
+- **간담회 일정·참석 관리**: 공무원 본인이 만든 간담회와 초청 단체 참석 여부만 보이고, 간담회일 90일 뒤 자동 삭제됩니다.
+- **단체의 직접 등록·수정**: 단체 담당자가 정보를 올리면 관리자가 승인(3영업일 이내)한 뒤 공개합니다. 수정 이력이 남습니다.
+- **관리자 화면**: 신청 승인·거절, 단체 담당자 본인 확인, 신고 처리, 수집 결과 확인.
+- **모바일 대응**: 360px 화면에서 쓸 수 있는 반응형 웹이며, 홈 화면에 추가할 수 있습니다(PWA).
+
+## 사용자와 권한
+
+| 사용자 | 하는 일 |
+|---|---|
+| 공무원 | go.kr·korea.kr 등 공공기관 이메일로 가입, 지역 검색·엑셀·간담회 관리 |
+| 단체 담당자 | 별도 가입 후 관리자 확인을 받으면 자기 단체 정보 등록·수정 |
+| 관리자 | 서비스 운영자 1명(DB에서 직접 지정). 승인·신고 처리 |
+
+## 개인정보·안전 원칙
+
+- 대표자 개인 휴대전화·주소는 수집하거나 저장하지 않고, 기관 명의로 공개된 대표 연락처만 출처와 함께 저장합니다.
+- 챗봇 답변 기록에는 질문 원문과 사용자 정보를 남기지 않습니다. (지역·분야·단체·시각만, 90일 뒤 삭제)
+- AI는 안내 문장만 쓰고, 단체 목록은 항상 DB 결과입니다. 답변 아래에 "AI 안내는 참고용" 문구가 붙습니다.
+- 비밀 값은 `.env`와 배포 환경변수에만 두고 저장소에 올리지 않습니다.
+
+## 기술 스택
+
+- **Next.js 16** (App Router) · React 19 · TypeScript · Tailwind CSS 4
+- **Supabase** (Postgres, 로그인, 행 단위 보안) · pg_cron(기록 자동 삭제)
+- **OpenAI** (안내 문장 한 줄, 기본 `gpt-4o-mini`)
+- **Vercel** 배포
+
+## 폴더 구조
+
+```
+app/        화면과 API (챗봇, 로그인, 간담회, 내 단체, 관리자, /api/*)
+features/   화면 부품 (챗봇, 메뉴, 간담회, 단체, 관리자)
+lib/        검색·권한·검증 등 순수 코드와 시험
+scripts/    단체 수집·점검 프로그램
+supabase/   DB 구조(migrations)
+data/       지역 목록 등 기초 자료
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 직접 실행해 보기
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+cp .env.example .env   # 값을 채웁니다 (아래 환경변수 참고)
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 환경변수 | 용도 |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase 연결(공개용) |
+| `SUPABASE_SERVICE_ROLE_KEY` | 관리 기능(서버 전용) |
+| `OPENAI_API_KEY` | 안내 문장(서버 전용) |
+| `ALLOWED_EMAIL_DOMAINS` | 공무원 허용 도메인 추가분(선택) |
+| `NEXT_PUBLIC_SITE_URL` | 인증 메일에서 돌아올 서비스 주소 |
 
-## Learn More
+시험: `npm run test:search`, `npm run test:collect`
 
-To learn more about Next.js, take a look at the following resources:
+## 현재 상태
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+기능은 모두 구현했고, 아직 **전국 데이터는 모으지 못했습니다.** 수집 프로그램은 경기데이터드림 공개 API(인증키 필요)에 연결돼 있고, 전국 확대는 행정안전부 비영리민간단체 자료를 추가해야 합니다. 검증 결과와 남은 과제는 [CHECK.md](CHECK.md)에 있습니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 문서
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [PRD.md](PRD.md) 기획서 · [PLAN.md](PLAN.md) 계획서 · [DESIGN.md](DESIGN.md) 설계서 · [CHECK.md](CHECK.md) 검증 결과 · [DEPLOY.md](DEPLOY.md) 배포 준비
